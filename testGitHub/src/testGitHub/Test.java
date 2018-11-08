@@ -10,5 +10,6 @@ public static void main(String[] args) {
 	System.out.println("愤怒司法供电所");
 	System.out.println("11111111111");
 	System.out.println("qqqqqqq");
+	System.out.println("wwwwwww");
 }
 }

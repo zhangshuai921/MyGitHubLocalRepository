@@ -1,0 +1,1 @@
+INFO  2018-11-10 15:52:53,952 [FrameworkServlet.java,521] - Initializing Servlet 'springMvcServlet'%INFO  2018-11-10 15:52:54,354 [?,?] - using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter%INFO  2018-11-10 15:52:54,824 [FrameworkServlet.java,543] - Completed initialization in 868 ms%

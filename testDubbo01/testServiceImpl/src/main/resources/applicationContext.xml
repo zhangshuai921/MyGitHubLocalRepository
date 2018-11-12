@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-3.1.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+        <!-- 包扫描 -->
+        <context:component-scan base-package="com.testDubbo"></context:component-scan>
+
+        <!-- 使用dubbo的另外一个原因，可以和spring进行无缝整合 -->
+        <!--目的：
+                找到注册中心，告诉他我谁，我的端口是多少
+        -->
+        <!-- 1、配置配置别名，目的是后台可以看到这个服务的别名，区别到底是谁，别名通俗易懂 -->
+        <dubbo:application name="provider" owner="programmer" organization="dubbox"/>
+        <!-- 2、配置注册中心 -->
+        <dubbo:registry address="zookeeper://192.168.116.128:2181"/>
+        <dubbo:protocol name="dubbo" port="20880"/>
+        <!--
+        告诉注册中心我是谁
+        interface  代表的就是类型
+        ref  代表的就是具体发布哪个服务
+        timeout  连接超时时间
+        -->
+        <dubbo:service interface="com.testDubbo.TestService" ref="TestServiceImpl" timeout="60000" protocol="dubbo"/>
+        <!-- 创建接口实现类bean -->
+        <bean id="TestServiceImpl" class="com.dubbo.serviceImpl.TestServiceImpl"></bean>
+        <!-- 配置我的端口，因为消费者想要连接我们，
+             必须通过我的IP+PORT访问，IP在连接注册中心的时候就知道了我的IP，但是端口不知道.
+             端口可以随便写，但是不能被其他端口占用,一个dubbo对外发布的时候，必须独占一个端口
+        -->
+</beans>

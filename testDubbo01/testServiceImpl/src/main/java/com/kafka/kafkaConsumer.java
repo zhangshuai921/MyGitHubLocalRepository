@@ -42,7 +42,6 @@ public class kafkaConsumer extends Thread{
 
     @Override
     public void run() {
-
         Map<String,Integer> topicCountMap = new HashMap<String,Integer>();
         topicCountMap.put(topic,new Integer(1));
         Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
